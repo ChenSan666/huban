@@ -22,7 +22,7 @@ export default {
   computed:{
     bgUrl() {
       // category
-      return 'http://img.hb.aicdn.com/'+this.category.covers[0].file.key
+      return 'http://img.hb.aicdn.com/'+this.category.covers[0].file.key + COMPRESS
     }
   }
 };

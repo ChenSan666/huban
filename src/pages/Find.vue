@@ -1,17 +1,17 @@
 <template>
   <div class="find">
-    <div class="recommand">
+    <div class="recommand" v-if="!!banner">
       <p class="recommand-log">推荐兴趣</p>
-      <recommand-item />
-      <recommand-item />
-      <recommand-item />
-      <recommand-item />
-      <recommand-item />
+      <recommand-item v-for="item in explores" :key="item.explore_id" :explore="item"/>
     </div>
     <div class="find-more">
       <p class="find-more-title">发现更多</p>
-      <div class="find-more-wrapper">
-        <div class="row">
+      <div class="find-more-wrapper" v-if="!!banner">
+
+        <div class="row" v-for="i in 3" :key="i">
+          <find-more-item v-for="recommend in banner.recommends.slice((i-1)*3, i*3)" :key="recommend.recommendation_id" :recommend="recommend"/>
+        </div>
+        <!-- <div class="row">
           <find-more-item />
           <find-more-item />
           <find-more-item />
@@ -20,16 +20,11 @@
           <find-more-item />
           <find-more-item />
           <find-more-item />
-        </div>
-        <div class="row">
-          <find-more-item />
-          <find-more-item />
-          <find-more-item />
-        </div>
+        </div> -->
         
       </div>
     </div>
-    
+    <Nav />
   </div>
 </template>
 <style lang="scss" scoped>
@@ -41,22 +36,22 @@
     .recommand-log {
       font-size: 12px;
       margin: 4px 0 20px 0;
-      font-weight:600;
+      font-weight: 600;
     }
   }
-  .find-more{
+  .find-more {
     .find-more-title {
       font-size: 12px;
       margin: 4px 0 20px 0;
-      font-weight:600;
+      font-weight: 600;
     }
-    .find-more-wrapper{
+    .find-more-wrapper {
       display: flex;
       height: 96vw;
       padding: 2vw;
       flex-direction: column;
       justify-content: space-between;
-      .row{
+      .row {
         display: flex;
         flex-basis: 27vw;
         height: 27vw;
@@ -68,23 +63,788 @@
 // <find-more-item />
 </style>
 <script>
+import Nav from "@/components/Nav";
 import findMoreItem from "@/components/findMoreItem";
 import RecommandItem from "@/components/RecommandItem";
 export default {
   name: "find",
-  data(){
+  data() {
     return {
-      categories: []
+      banner: null,
+      explores: [
+        {
+          cover: {
+            bucket: "hbimg",
+            key: "78dc4b23cc0b7d636cba41a002c50250f9b8e29a8a87b-185Fsi"
+          },
+          explore_id: 1858,
+          name: "APP-Keyboard",
+          urlname: "app-keyboard",
+          start_at: 1526609580,
+          end_at: 1527214380,
+          theme: "004061",
+          description: null,
+          top_three: [
+            {
+              pin_id: 1289434459,
+              user_id: 1174661,
+              board_id: 35158815,
+              file_id: 157443977,
+              file: {
+                bucket: "hbimg",
+                key: "c60604521c58b6f72c66809003e969a36e3b63ee34072-RCxNwt",
+                type: "image/jpeg",
+                height: "881",
+                width: "1080",
+                frames: "1"
+              },
+              media_type: 0,
+              source: "zcool.com.cn",
+              link: "http://www.zcool.com.cn/work/ZMTYwNTUzNjg=.html",
+              raw_text:
+                "搜狗输入法-机械键盘|UI|APP界面|小LU先生 - 原创作品 - 站酷 (ZCOOL)",
+              text_meta: {
+                tags: []
+              },
+              via: 7,
+              via_user_id: 0,
+              original: null,
+              created_at: 1503565539,
+              like_count: 0,
+              comment_count: 0,
+              repin_count: 5,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            },
+            {
+              pin_id: 1289434339,
+              user_id: 1174661,
+              board_id: 35158815,
+              file_id: 157443961,
+              file: {
+                bucket: "hbimg",
+                key: "acf9bdac8b594acf44cf828bbfc986981a11d76037fea-jhTjie",
+                type: "image/jpeg",
+                height: "881",
+                width: "1080",
+                frames: "1"
+              },
+              media_type: 0,
+              source: "zcool.com.cn",
+              link: "http://www.zcool.com.cn/work/ZMTYwNTUzNjg=.html",
+              raw_text:
+                "搜狗输入法-机械键盘|UI|APP界面|小LU先生 - 原创作品 - 站酷 (ZCOOL)",
+              text_meta: {
+                tags: []
+              },
+              via: 7,
+              via_user_id: 0,
+              original: null,
+              created_at: 1503565536,
+              like_count: 0,
+              comment_count: 0,
+              repin_count: 3,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            },
+            {
+              pin_id: 1275012375,
+              user_id: 17391638,
+              board_id: 38164674,
+              file_id: 100448545,
+              file: {
+                bucket: "hbimg",
+                key: "7a9acb97796fc89d2fd80bef6841a00215af3cf9b496b-8ZrgIQ",
+                type: "image/jpeg",
+                height: "3129",
+                width: "980",
+                frames: "1"
+              },
+              media_type: 0,
+              source: "img.ui.cn",
+              link:
+                "http://img.ui.cn/data/file/8/9/4/576498.jpg?imageMogr2/auto-orient/quality/100",
+              raw_text: "呼吸之间-搜狗输入法皮肤设计大赛",
+              text_meta: {
+                tags: []
+              },
+              via: 691717821,
+              via_user_id: 13992375,
+              original: 691717821,
+              created_at: 1502760865,
+              like_count: 0,
+              comment_count: 0,
+              repin_count: 0,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            }
+          ]
+        },
+        {
+          cover: {
+            bucket: "hbimg",
+            key: "d75a030c7fbe9ba36d5c6739adc03aa7ae5de7eb1acc2-v9dz0N"
+          },
+          explore_id: 1859,
+          name: "图书馆",
+          urlname: "tushuguan",
+          start_at: 1526609580,
+          end_at: 1527214380,
+          theme: "663333",
+          description: "知识的海洋",
+          top_three: [
+            {
+              pin_id: 1103431881,
+              user_id: 18808460,
+              board_id: 30077866,
+              file_id: 47824,
+              file: {
+                bucket: "hbimg",
+                key: "d042c7a670ab330d1c5a5e6a99b8855df468c40615e48-EWBXGS",
+                type: "image/jpeg",
+                height: 323,
+                width: 500
+              },
+              media_type: 0,
+              source: "idzoom.com",
+              link: "http://www.idzoom.com/portal.php?mod=view&aid=3624",
+              raw_text: "多摩美术大学图书馆 / 伊东丰雄 - 公共 - 室内设计师网",
+              text_meta: {},
+              via: 2,
+              via_user_id: 0,
+              original: null,
+              created_at: 1492186338,
+              like_count: 1,
+              comment_count: 0,
+              repin_count: 6,
+              is_private: 0,
+              extra: null,
+              orig_source:
+                "http://image.idzoom.com/201111/22/113527sp3uoxw3ztwz36jj.jpg"
+            },
+            {
+              pin_id: 1103431812,
+              user_id: 18808460,
+              board_id: 35048723,
+              file_id: 47819,
+              file: {
+                bucket: "hbimg",
+                key: "350175f6ebdbc6eb5c24a9047d3c14b3fcb66b4bc6fe-DwFmQA",
+                type: "image/jpeg",
+                height: 319,
+                width: 500
+              },
+              media_type: 0,
+              source: "idzoom.com",
+              link: "http://www.idzoom.com/portal.php?mod=view&aid=3624",
+              raw_text: "多摩美术大学图书馆 / 伊东丰雄 - 公共 - 室内设计师网",
+              text_meta: {},
+              via: 2,
+              via_user_id: 0,
+              original: null,
+              created_at: 1492186330,
+              like_count: 0,
+              comment_count: 0,
+              repin_count: 5,
+              is_private: 0,
+              extra: null,
+              orig_source:
+                "http://image.idzoom.com/201111/22/113545qcy3cgggh4yokqq8.jpg"
+            },
+            {
+              pin_id: 1103431801,
+              user_id: 18808460,
+              board_id: 35048723,
+              file_id: 47821,
+              file: {
+                bucket: "hbimg",
+                key: "b5eb5fdcd0e3a149099a5d2230ca102e87135347f92a-Vr1zp4",
+                type: "image/jpeg",
+                height: 359,
+                width: 500
+              },
+              media_type: 0,
+              source: "idzoom.com",
+              link: "http://www.idzoom.com/portal.php?mod=view&aid=3624",
+              raw_text: "多摩美术大学图书馆 / 伊东丰雄 - 公共 - 室内设计师网",
+              text_meta: {},
+              via: 2,
+              via_user_id: 0,
+              original: null,
+              created_at: 1492186329,
+              like_count: 0,
+              comment_count: 0,
+              repin_count: 6,
+              is_private: 0,
+              extra: null,
+              orig_source:
+                "http://image.idzoom.com/201111/22/113644g4jduz4cl2z53d34.jpg"
+            }
+          ]
+        },
+        {
+          cover: {
+            bucket: "hbimg",
+            key: "c471e8f089d4f28f6f2a31185457a83f114f4e822dc4a-hWI0a2"
+          },
+          explore_id: 1802,
+          name: "刘诗诗",
+          urlname: "liushishi",
+          start_at: 1526609520,
+          end_at: 1527214320,
+          theme: "242424",
+          description: null,
+          top_three: [
+            {
+              pin_id: 653094599,
+              user_id: 15996914,
+              board_id: 18326368,
+              file_id: 96892208,
+              file: {
+                farm: "farm1",
+                bucket: "hbimg",
+                key: "c471e8f089d4f28f6f2a31185457a83f114f4e822dc4a-hWI0a2",
+                type: "image/jpeg",
+                height: "875",
+                frames: "1",
+                width: "599"
+              },
+              media_type: 0,
+              source: "pic.haibao.com",
+              link: "http://pic.haibao.com/star/article/2406542.htm?page=23",
+              raw_text: "吴奇隆、刘诗诗",
+              text_meta: {},
+              via: 652258140,
+              via_user_id: 484124,
+              original: 652258140,
+              created_at: 1458523201,
+              like_count: 5,
+              comment_count: 0,
+              repin_count: 23,
+              is_private: 0,
+              extra: null,
+              orig_source:
+                "http://c1.haibao.cn/img/600_0_100_1/1458465167.4283/bf5f1e46c08f6067b06c5e5b7a69c65a.jpg"
+            },
+            {
+              pin_id: 653093321,
+              user_id: 15996914,
+              board_id: 18326368,
+              file_id: 96901021,
+              file: {
+                farm: "farm1",
+                bucket: "hbimg",
+                key: "8f8996a6982187725843c6cea3b7d39b3616907e3f23c-f241ov",
+                type: "image/jpeg",
+                height: "1425",
+                frames: "1",
+                width: "950"
+              },
+              media_type: 0,
+              source: "1905.com",
+              link: "http://www.1905.com/newgallery/hdpic/993920.shtml#p6",
+              raw_text: "吴奇隆刘诗诗最新婚纱照曝光 甜蜜依偎深情拥吻",
+              text_meta: {},
+              via: 652318076,
+              via_user_id: 484124,
+              original: 652318076,
+              created_at: 1458523152,
+              like_count: 2,
+              comment_count: 0,
+              repin_count: 17,
+              is_private: 0,
+              extra: null,
+              orig_source:
+                "http://image11.m1905.cn/uploadfile/2016/0318/20160318094338219073.jpg"
+            },
+            {
+              pin_id: 653092823,
+              user_id: 15996914,
+              board_id: 18326368,
+              file_id: 96901395,
+              file: {
+                farm: "farm1",
+                bucket: "hbimg",
+                key: "af989f8332e0c42bc796ef9c01ecfd566e529c3223056-BgTRPt",
+                type: "image/jpeg",
+                height: "915",
+                frames: "1",
+                width: "610"
+              },
+              media_type: 0,
+              source: "moko.cc",
+              link: "http://www.moko.cc/post/1157410.html",
+              raw_text: "《ELLE》封面明星刘诗诗：爱 . 发光！",
+              text_meta: {},
+              via: 652321438,
+              via_user_id: 484124,
+              original: 652321438,
+              created_at: 1458523135,
+              like_count: 0,
+              comment_count: 0,
+              repin_count: 12,
+              is_private: 0,
+              extra: null,
+              orig_source:
+                "http://img1qn.moko.cc/2016-03-15/85a84c0a-8845-488d-a75b-75c00786921a.jpg?imageView2/2/w/915/h/915"
+            }
+          ]
+        },
+        {
+          cover: {
+            bucket: "hbimg",
+            key: "871681fe37227d8073d6303f10071397f7d05528c1c6-lWrYhm"
+          },
+          explore_id: 1826,
+          name: "APP缺省页",
+          urlname: "appqueshengye",
+          start_at: 1526609520,
+          end_at: 1527214320,
+          theme: "ffffff",
+          description: null,
+          top_three: [
+            {
+              pin_id: 1401959362,
+              user_id: 21150526,
+              board_id: 40615721,
+              file_id: 168824296,
+              file: {
+                bucket: "hbimg",
+                key: "24c474b208fb430472711a650748c8b4061fd5cd33828-McWEiv",
+                type: "image/png",
+                height: "838",
+                width: "826",
+                frames: "1"
+              },
+              media_type: 0,
+              source: "huaban.com",
+              link: "https://huaban.com/pins/1395778143/",
+              raw_text: "无脸男nan采集到APP - 缺省页(448图)_花瓣UI/UX",
+              text_meta: {
+                tags: []
+              },
+              via: 7,
+              via_user_id: 0,
+              original: null,
+              created_at: 1511162399,
+              like_count: 0,
+              comment_count: 0,
+              repin_count: 6,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            },
+            {
+              pin_id: 1401958355,
+              user_id: 21150526,
+              board_id: 40615721,
+              file_id: 168824213,
+              file: {
+                bucket: "hbimg",
+                key: "c14442a2c8ad7b67eceb112053944fb26acd049d17b35-BXfZSa",
+                type: "image/png",
+                height: "1148",
+                width: "1242",
+                frames: "1"
+              },
+              media_type: 0,
+              source: "huaban.com",
+              link: "https://huaban.com/pins/1395777746/",
+              raw_text:
+                "滚雪球 企鹅 #空数据页# #缺省页# ...@无脸男nan采集到APP - 缺省页(448图)_花瓣UI/UX",
+              text_meta: {
+                tags: []
+              },
+              via: 7,
+              via_user_id: 0,
+              original: null,
+              created_at: 1511162368,
+              like_count: 0,
+              comment_count: 0,
+              repin_count: 8,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            },
+            {
+              pin_id: 1390011621,
+              user_id: 16966289,
+              board_id: 39451078,
+              file_id: 167573457,
+              file: {
+                bucket: "hbimg",
+                key: "71695ec02a43f0bb0644de06a97e4b02729582802f377-acXb9J",
+                type: "image/jpeg",
+                height: "3860",
+                width: "720",
+                frames: "1"
+              },
+              media_type: 0,
+              source: "zcool.com.cn",
+              link: "http://www.zcool.com.cn/work/ZMTc3ODE5NDg=.html",
+              raw_text:
+                "要出发的缺省页|UI|APP界面|沈墨晨 - 原创作品 - 站酷 (ZCOOL)",
+              text_meta: {
+                tags: []
+              },
+              via: 7,
+              via_user_id: 0,
+              original: null,
+              created_at: 1510304261,
+              like_count: 3,
+              comment_count: 0,
+              repin_count: 23,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            }
+          ]
+        },
+        {
+          cover: {
+            bucket: "hbimg",
+            key: "77b5f4dea6c299c054e99cd454bcab1c4abe68de259ec-zQaoSE"
+          },
+          explore_id: 1874,
+          name: "柯基",
+          urlname: "keji",
+          start_at: 1526609460,
+          end_at: 1527214260,
+          theme: "aaaaaa",
+          description: "世界这么大，我却只想捏你的小屁股！",
+          top_three: [
+            {
+              pin_id: 1551380372,
+              user_id: 1193058,
+              board_id: 18122247,
+              file_id: 183511673,
+              file: {
+                bucket: "hbimg",
+                key: "4bc84357f121f0622df4e2fd0120bf1bbfe02fde7669-ZEjcoZ",
+                type: "image/jpeg",
+                height: 690,
+                width: 690,
+                frames: 1
+              },
+              media_type: 0,
+              source: "weibo.com",
+              link:
+                "https://weibo.com/1733671614/G7f402hbf?ref=home&rid=3_0_8_3071704732583969482",
+              raw_text: "迷恋上柯基宝宝的小翘臀 ​​​​",
+              text_meta: {
+                tags: []
+              },
+              via: 7,
+              via_user_id: 0,
+              original: null,
+              created_at: 1520990005,
+              like_count: 1,
+              comment_count: 0,
+              repin_count: 4,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            },
+            {
+              pin_id: 1551380139,
+              user_id: 1193058,
+              board_id: 18122247,
+              file_id: 183511658,
+              file: {
+                bucket: "hbimg",
+                key: "8db9997e827e6c9e96a3808ceff25cf4d86b99ba49f4-iS2moE",
+                type: "image/jpeg",
+                height: 690,
+                width: 690,
+                frames: 1
+              },
+              media_type: 0,
+              source: "weibo.com",
+              link:
+                "https://weibo.com/1733671614/G7f402hbf?ref=home&rid=3_0_8_3071704732583969482",
+              raw_text: "迷恋上柯基宝宝的小翘臀 ​​​​",
+              text_meta: {
+                tags: []
+              },
+              via: 7,
+              via_user_id: 0,
+              original: null,
+              created_at: 1520989995,
+              like_count: 0,
+              comment_count: 0,
+              repin_count: 1,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            },
+            {
+              pin_id: 1551380016,
+              user_id: 1193058,
+              board_id: 18122247,
+              file_id: 183511644,
+              file: {
+                bucket: "hbimg",
+                key: "725e008d3dfce0a082920b0486f16190e54f097e4792-x5rtOM",
+                type: "image/jpeg",
+                height: 690,
+                width: 690,
+                frames: 1
+              },
+              media_type: 0,
+              source: "weibo.com",
+              link:
+                "https://weibo.com/1733671614/G7f402hbf?ref=home&rid=3_0_8_3071704732583969482",
+              raw_text: "迷恋上柯基宝宝的小翘臀 ​​​​",
+              text_meta: {
+                tags: []
+              },
+              via: 7,
+              via_user_id: 0,
+              original: null,
+              created_at: 1520989996,
+              like_count: 0,
+              comment_count: 0,
+              repin_count: 3,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            }
+          ]
+        },
+        {
+          cover: {
+            bucket: "hbimg",
+            key: "f1a5b4480313eccbdaf81dc9c8f9dad5217b2c6a12b51b-GTiQJs"
+          },
+          explore_id: 1818,
+          name: "红色系摄影",
+          urlname: "hongsexisheying",
+          start_at: 1526538960,
+          end_at: 1527143760,
+          theme: "c20020",
+          description:
+            "当所有的东西都用一种颜色的状态呈现，画面突然就变得很美好了。红色热情似火，浓烈而又勇敢。",
+          top_three: [
+            {
+              pin_id: 1249878036,
+              user_id: 17133213,
+              board_id: 27780830,
+              file_id: 152876100,
+              file: {
+                bucket: "hbimg",
+                key: "f1a5b4480313eccbdaf81dc9c8f9dad5217b2c6a12b51b-GTiQJs",
+                type: "image/jpeg",
+                height: "1608",
+                width: "852",
+                frames: "1"
+              },
+              media_type: 0,
+              source: null,
+              link: null,
+              raw_text: "",
+              text_meta: {
+                tags: []
+              },
+              via: 1249708158,
+              via_user_id: 11354060,
+              original: 1249708158,
+              created_at: 1501323655,
+              like_count: 9,
+              comment_count: 0,
+              repin_count: 110,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            },
+            {
+              pin_id: 1248374383,
+              user_id: 17133213,
+              board_id: 27780830,
+              file_id: 152279058,
+              file: {
+                bucket: "hbimg",
+                key: "7570c18b81b8a8a6efcec395c9d7822f69585a9943209-BhzOnW",
+                type: "image/jpeg",
+                height: "849",
+                width: "1280",
+                frames: "1"
+              },
+              media_type: 0,
+              source: null,
+              link: null,
+              raw_text: "",
+              text_meta: {
+                tags: []
+              },
+              via: 1248318980,
+              via_user_id: 12078094,
+              original: 1248318980,
+              created_at: 1501220098,
+              like_count: 11,
+              comment_count: 0,
+              repin_count: 40,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            },
+            {
+              pin_id: 1248374019,
+              user_id: 17133213,
+              board_id: 27780830,
+              file_id: 152255637,
+              file: {
+                bucket: "hbimg",
+                key: "04ac7395fae4e3a1eaa5924d75ae836414921c645cd0a-jh2CVc",
+                type: "image/jpeg",
+                height: "855",
+                width: "1280",
+                frames: "1"
+              },
+              media_type: 0,
+              source: null,
+              link: null,
+              raw_text: "",
+              text_meta: {
+                tags: []
+              },
+              via: 1248318977,
+              via_user_id: 12078094,
+              original: 1248318977,
+              created_at: 1501220082,
+              like_count: 14,
+              comment_count: 0,
+              repin_count: 93,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            }
+          ]
+        },
+        {
+          cover: {
+            bucket: "hbimg",
+            key: "02b2281f077e11beec3f0867a5f10707a3ce3259373d4-JASWT1"
+          },
+          explore_id: 1857,
+          name: "花窗玻璃",
+          urlname: "huachuangboli",
+          start_at: 1526538960,
+          end_at: 1527143760,
+          theme: "070707",
+          description: "看，是窗子开出了花。",
+          top_three: [
+            {
+              pin_id: 1064401336,
+              user_id: 17979760,
+              board_id: 28776015,
+              file_id: 81183530,
+              file: {
+                bucket: "hbimg",
+                key: "b103293be23f07253737a3173310b860872dfb1f4097e-jDEj5d",
+                type: "image/jpeg",
+                height: 479,
+                width: 720,
+                frames: 1
+              },
+              media_type: 0,
+              source: "blog.likewed.com",
+              link: "http://blog.likewed.com/post/296216",
+              raw_text:
+                "RING By @蔡上作品工作室 :  在宴会厅里建一座教堂，构筑巨大的哥特式花窗玻璃墙，阳光从多彩的花窗穿透而过，如圣光沐浴在新人身上。近千只白色的蜡烛点亮，烛光辉映在水晶瓶器中，如圣歌咏唱。",
+              text_meta: {},
+              via: 523840479,
+              via_user_id: 18077279,
+              original: 470802565,
+              created_at: 1489993323,
+              like_count: 7,
+              comment_count: 0,
+              repin_count: 34,
+              is_private: 0,
+              extra: null,
+              orig_source:
+                "http://pics.htwed.com/2014/03/25/53318f758d5c2.jpg!l"
+            },
+            {
+              pin_id: 845076111,
+              user_id: 15242343,
+              board_id: 31645851,
+              file_id: 81183533,
+              file: {
+                bucket: "hbimg",
+                key: "326ec693cc5b6c65030535c345c4b2ebf5fbe3ec34597-YV3AJQ",
+                type: "image/jpeg",
+                height: 479,
+                width: 720,
+                frames: 1
+              },
+              media_type: 0,
+              source: "blog.likewed.com",
+              link: "http://blog.likewed.com/post/296216",
+              raw_text:
+                "RING By @蔡上作品工作室 :  在宴会厅里建一座教堂，构筑巨大的哥特式花窗玻璃墙，阳光从多彩的花窗穿透而过，如圣光沐浴在新人身上。近千只白色的蜡烛点亮，烛光辉映在水晶瓶器中，如圣歌咏唱。",
+              text_meta: {},
+              via: 470802583,
+              via_user_id: 6695319,
+              original: 470802583,
+              created_at: 1473142230,
+              like_count: 2,
+              comment_count: 0,
+              repin_count: 18,
+              is_private: 0,
+              extra: null,
+              orig_source:
+                "http://pics.htwed.com/2014/03/25/53313e920d6c4.jpg!l"
+            },
+            {
+              pin_id: 840589180,
+              user_id: 169629,
+              board_id: 31565256,
+              file_id: 113412473,
+              file: {
+                bucket: "hbimg",
+                key: "be15cd8dc5d5db5b7e7ea32b397d8af6b14e0d3241ce6-IMGpLl",
+                type: "image/jpeg",
+                height: "1026",
+                width: "540",
+                frames: "1"
+              },
+              media_type: 0,
+              source: "walanwalan.com",
+              link: "http://www.walanwalan.com/designs/573741/",
+              raw_text: "【美轮美奂的教堂花窗玻璃艺术】\n ",
+              text_meta: {},
+              via: 7,
+              via_user_id: 0,
+              original: null,
+              created_at: 1472726316,
+              like_count: 12,
+              comment_count: 0,
+              repin_count: 86,
+              is_private: 0,
+              extra: null,
+              orig_source: null
+            }
+          ]
+        }
+      ]
     };
   },
   mounted() {
-    this.$http
-      .get(PROXY_API + "https://api.huaban.com/categories/")
-      .then(res => {
-        console.log(res);
-        this.categories.push(...res.data.categories);
-      });
+    if (!sessionStorage.getItem("banner")) {
+      this.$http
+        .get(GET_PROXY_API + 'https://api.huaban.com/')
+        .then(res => {
+          // console.log(res);
+          sessionStorage.setItem("banner", JSON.stringify(res.data));
+          this.banner = res.data;
+        });
+    } else {
+      this.banner = JSON.parse(sessionStorage.getItem("banner"));
+    }
   },
-  components: {RecommandItem,findMoreItem}
+  components: { RecommandItem, findMoreItem , Nav}
 };
 </script>

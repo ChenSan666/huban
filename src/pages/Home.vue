@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div v-if="!!banner" class="bg" :style="'background: url('+bannerBg+')center center no-repeat;'">
+    <div v-if="!!banner" class="bg" :style="'background: url('+bannerBg+') center center no-repeat;'">
     </div>
     <div class="content">
       <div class="search-box">
@@ -20,11 +20,13 @@
         <Box v-for="(item, index) in categories" :odd="index%2 == 0" :category="item" :key="item.id"/>
       </div>
     </div>
+    <Nav />
   </div>
 </template>
 
 <script>
 import Box from "@/components/Box";
+import Nav from "@/components/Nav";
 
 export default {
   name: "home",
@@ -39,7 +41,7 @@ export default {
     // console.log(this);
     if (!sessionStorage.getItem("categories")) {
       this.$http
-        .get(PROXY_API + "https://api.huaban.com/categories/")
+        .get(GET_PROXY_API + "https://api.huaban.com/categories/")
         .then(res => {
           console.log(res);
           this.categories.push(...res.data.categories);
@@ -53,18 +55,19 @@ export default {
     }
 
     if (!sessionStorage.getItem("banner")) {
-      this.$http.get(PROXY_API + "https://api.huaban.com/").then(res => {
+      this.$http.get(GET_PROXY_API + "https://api.huaban.com/").then(res => {
         console.log(res);
         // this.categories.push(...res.data.categories);
         sessionStorage.setItem("banner", JSON.stringify(res.data));
         this.banner = res.data;
-        var rand = Math.floor(Math.random() * 5 + 1);
-        this.bannerObj = this.banner.banners[rand];
+        this.bannerObj = res.data.banners[0];
       });
     } else {
       this.banner = JSON.parse(sessionStorage.getItem("banner"));
-      var rand = Math.floor(Math.random() * 5 + 1);
-      this.bannerObj = this.banner.banners[rand];
+      console.log(this.banner);
+      console.log(1);
+      this.bannerObj = this.banner.banners[0];
+      console.log(this.banner);
     }
   },
   computed: {
@@ -80,7 +83,7 @@ export default {
       }
     }
   },
-  components: { Box }
+  components: { Box, Nav}
 };
 </script>
 

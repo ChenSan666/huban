@@ -1,14 +1,25 @@
 <template>
   <div class="col-item">
-    <div class="item-avatar"></div>
-    <p class="item-title">哈哈</p>
+    <div class="item-avatar" :style="'background: url('+avatarUrl +') center center / cover no-repeat;'"></div>
+    <p class="item-title">{{recommend.title}}</p>
   </div>
 </template>
 
 <script>
 
 export default {
-  name: "findMoreItem"
+  name: "findMoreItem",
+  props: {
+    recommend: Object
+  },
+  computed:{
+    avatarUrl() {
+      return 'http://img.hb.aicdn.com/' + this.recommend.cover.key + COMPRESS
+    }
+  },
+  // mounted() {
+  //   console.log(this.recommend);
+  // }
 };
 </script>
 
@@ -24,7 +35,6 @@ export default {
     height: 18vw;
     background-color: #fff;
     border-radius: 4px;
-    background: url('http://img.hb.aicdn.com/ef1b19506228b4b46341764f5aa01d40aa9255b21fe17-FiFXcr_/fw/486/gifto/true') center center / cover no-repeat
   }
   .item-title {
     text-align: center;
