@@ -3,20 +3,20 @@
     <div v-if="!!banner" class="bg" :style="'background: url('+bannerBg+') center center no-repeat;'">
     </div>
     <div class="content">
-      <div class="search-box">
+      <div class="search-box" @click="toSearchPage">
         <span class="placehold">请输入你喜欢的...</span>
         <img src="" class="search-icon">
       </div>
       <div class="tuijian">
-        <div class="every every-day">
+        <div class="every every-day" @click="toUserSpace(0)">
           <span>每日精选</span>
         </div>
-        <div class="every every-img">
+        <div class="every every-img" @click="toUserSpace(1)">
           <span>万能配图</span>
         </div>
       </div>
       <p class="fenlei">分类浏览</p>
-      <div class="wrapper clearfix" v-if="categories.length == 0?false:true">
+      <div class="wrapper clearfix" v-if="categories == 0?false:true">
         <Box v-for="(item, index) in categories" :odd="index%2 == 0" :category="item" :key="item.id"/>
       </div>
     </div>
@@ -32,6 +32,7 @@ export default {
   name: "home",
   data() {
     return {
+      reconmmedUser:["",""],
       categories: [],
       bannerObj: null,
       banner: null
@@ -58,17 +59,45 @@ export default {
       this.$http.get(GET_PROXY_API + "https://api.huaban.com/").then(res => {
         console.log(res);
         // this.categories.push(...res.data.categories);
+        var newArr = [];
         sessionStorage.setItem("banner", JSON.stringify(res.data));
+        res.data.recommends.forEach((item) => {
+          console.log(item.user);
+          if(item.user){
+            newArr.push(item[user].user_id);
+          }
+        });
+
+        this.reconmmedUser = newArr;
         this.banner = res.data;
         this.bannerObj = res.data.banners[0];
       });
     } else {
       this.banner = JSON.parse(sessionStorage.getItem("banner"));
-      console.log(this.banner);
-      console.log(1);
+      var newArr =[];
+      this.banner.recommends.forEach((item) => {
+        console.log(item.user);
+        if(item.user){
+          newArr.push(item.user.user_id);
+        }
+      });
+      this.reconmmedUser = newArr;
       this.bannerObj = this.banner.banners[0];
       console.log(this.banner);
     }
+  },
+  methods:{
+     toUserSpace(index){
+       console.log(this.reconmmedUser);
+       this.$router.push({
+         path: '/user/'+this.reconmmedUser[index]
+       })
+     },
+     toSearchPage() {
+       this.$router.push({
+         name: 'search_page'
+       })
+     }
   },
   computed: {
     bannerBg() {
@@ -131,10 +160,10 @@ export default {
         color: #fff;
       }
       .every-day {
-        background: linear-gradient(left, rgb(0, 100, 255), rgb(0, 240, 255));
+        background: -webkit-linear-gradient(left, rgb(0, 100, 255), rgb(0, 240, 255));
       }
       .every-img {
-        background: linear-gradient(left, rgb(48, 35, 174), rgb(200, 108, 215));
+        background: -webkit-linear-gradient(left, rgb(48, 35, 174), rgb(200, 108, 215));
       }
       margin-bottom: 16px;
     }

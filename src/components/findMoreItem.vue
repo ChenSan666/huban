@@ -1,5 +1,5 @@
 <template>
-  <div class="col-item">
+  <div class="col-item" @click="toExplorePage">
     <div class="item-avatar" :style="'background: url('+avatarUrl +') center center / cover no-repeat;'"></div>
     <p class="item-title">{{recommend.title}}</p>
   </div>
@@ -17,9 +17,19 @@ export default {
       return 'http://img.hb.aicdn.com/' + this.recommend.cover.key + COMPRESS
     }
   },
-  // mounted() {
-  //   console.log(this.recommend);
-  // }
+  methods:{
+    toExplorePage() {
+      this.$router.push({
+        name: 'explore_page',
+        params: {
+          urlname: this.recommend.urlname
+        }
+      })
+    }
+  },
+  mounted() {
+    console.log(this.recommend);
+  }
 };
 </script>
 

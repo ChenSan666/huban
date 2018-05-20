@@ -1,5 +1,5 @@
 <template>
-  <div :class="'item ' + (odd?'odd':'')" :style="`background:url(`+bgUrl+`) center center no-repeat;background-size: cover;`">
+  <div @click="toKindPage" :class="'item ' + (odd?'odd':'')" :style="`background:url(`+bgUrl+`) center center no-repeat;background-size: cover;`">
     <div class="mask"></div>
     <div class="title-name">
       {{category.name}}
@@ -19,11 +19,24 @@ export default {
       type: Object
     }
   },
+  methods: {
+    toKindPage() {
+      this.$router.push({
+        name: 'kind_page',
+        params:{
+          navLink: this.category.nav_link
+        }}
+      )
+    }
+  },
   computed:{
     bgUrl() {
       // category
       return 'http://img.hb.aicdn.com/'+this.category.covers[0].file.key + COMPRESS
     }
+  },
+  mounted() {
+    console.log(this.category);
   }
 };
 </script>

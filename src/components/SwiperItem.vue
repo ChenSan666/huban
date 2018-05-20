@@ -1,16 +1,32 @@
 <template>
-  <div class="swiper-item">
-    <div class="bottom-mask"></div>
-    <div class="title">编排</div>
+  <div @click="toExplorePage" class="swiper-item" :style="'background-image: url('+avatarUrl+')'">
+    <div class="bottom-mask" :style="'background-color: #'+swiperItem.theme+';'"></div>
+    <div class="title">{{swiperItem.name}}</div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'swiperitem',
   props:{
-    // swiperItem: Object
+    swiperItem: Object
   },
+  computed: {
+    avatarUrl() {
+      return "http://img.hb.aicdn.com/" + this.swiperItem.cover.key + COMPRESS
+    }
+  },
+  methods: {
+    toExplorePage() {
+      this.$router.push({
+        name: 'explore_page',
+        params: {
+          urlname: this.swiperItem.urlname
+        }
+      })
+    }
+  }
 };
 </script>
 
@@ -21,7 +37,7 @@ export default {
   height: 24vw;
   // margin-right: 2vw;
   // margin-right: 1vw;
-  background-color: #ccc;
+  background: url('') center center / cover no-repeat;
   border-radius: 4px;
   .bottom-mask {
     position: absolute;

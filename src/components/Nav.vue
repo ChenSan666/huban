@@ -11,8 +11,8 @@
       </router-link>
     </div>
     <div class="nav-item">
-      <router-link to="/profile">
-        我的
+      <router-link to="/search">
+        搜索
       </router-link>
     </div>
   </div>
@@ -35,13 +35,17 @@ export default {};
   align-items: center;
   justify-content: center;
   background-color: rgb(253, 253, 253);
+  z-index: 100;
   .nav-item {
     flex: 1;
     display: flex;
-    justify-content: center;
-    align-content: center;
     a {
       color: #999;
+      display: inline-block;
+      text-align: center;
+      line-height: 64px;
+      width: 100%;
+      height: 100%;
       &.router-link-active {
         color: #0f0f0f;
       }

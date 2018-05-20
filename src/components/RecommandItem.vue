@@ -1,5 +1,5 @@
 <template>
-  <div class="recommand-box" >
+  <div class="recommand-box" @click="toExplorePage">
     <div class="recommand-bg clearfix">
       
       <div v-for="(item, index) in explore.top_three " class="recommand-bg-item" :class="(index < 2)?'index':''" :key="item.pin_id" :style="'background-image:url(http://img.hb.aicdn.com/'+item.file.key+'_/fw/486/gifto/true)'"></div>
@@ -30,6 +30,19 @@ export default {
         return this.explore.description;
       }
     }
+  },
+  methods: {
+    toExplorePage() {
+      this.$router.push({
+        name: 'explore_page',
+        params: {
+          urlname: this.explore.urlname
+        }
+      })
+    }
+  },
+  mounted() {
+    console.log(this.explore);
   }
 };
 </script>

@@ -1,21 +1,6 @@
 <template>
-  <div class="user-space clearfix">
-    <user-space-box :index="0"/>
-    <user-space-box/>
-    <user-space-box :index="0"/>
-    <user-space-box/>
-    <user-space-box :index="0"/>
-    <user-space-box/>
-    <user-space-box :index="0"/>
-    <user-space-box/>
-    <user-space-box :index="0"/>
-    <user-space-box/>
-    <user-space-box :index="0"/>
-    <user-space-box/>
-    <user-space-box :index="0"/>
-    <user-space-box/>
-    <user-space-box :index="0"/>
-    <user-space-box/>
+  <div class="user-space clearfix" v-if="boards != 0">
+    <user-space-box v-for="(item, index) in boards" :board="item" :key="item.board_id" :index="index"/>
   </div>
 </template>
 
@@ -23,6 +8,20 @@
   import UserSpaceBox from '@/components/UserSpaceBox';
   export default {
     name: "userspace",
+    data() {
+      return {
+        boards: [],
+      };
+    },
+    mounted() {
+      var user_id = this.$route.params.id;
+      this.$http.get(GET_PROXY_API + "https://api.huaban.com/users/"+user_id+"/boards?max=null&limit=20 ")
+        .then(res => {
+          console.log(res);
+          this.boards = res.data.boards;
+          console.log(this.boards);
+        })
+    },
     components: {UserSpaceBox}
   }
 </script>
@@ -31,6 +30,6 @@
 .user-space{
   padding: 2vw 3vw;
   padding-bottom: 64px;
-  background-color: rgb(244,244,244);
+  background-color: rgb(252,252,252);
 }
 </style>

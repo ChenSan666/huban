@@ -3,10 +3,13 @@ import Router from 'vue-router'
 import Home from '@/pages/Home'
 import App from '@/App'
 import Find from '@/pages/Find'
-// import Search from '@/pages/Search'
-import Profile from '@/pages/Profile'
+import Search from '@/pages/Search'
+// import Profile from '@/pages/Profile'
 import UserSpace from '@/pages/UserSpace'
 import Kind from '@/pages/Kind'
+import Picture from '@/pages/Picture'
+import Label from '@/pages/Label'
+import Explore from '@/pages/Explore'
 
 Vue.use(Router)
 
@@ -15,7 +18,7 @@ export default new Router({
     {
       path: '/',
       name: 'app',
-      redirect: '/kind',
+      redirect: '/home',
 
     }, {
       path: '/home',
@@ -26,17 +29,29 @@ export default new Router({
       name: 'find_page',
       component: Find,
     }, {
-      path: '/profile',
-      name: 'profile_page',
-      component: Profile,
-    }, {
       path: '/kind',
       name: 'kind_page',
       component: Kind,
     }, {
-      path: '/user',
+      path: '/user/:id',
       name: 'user_page',
       component: UserSpace,
+    },{
+      path: '/pic',
+      name: 'picture_page',
+      component: Picture,
+    },{
+      path: '/search',
+      name: 'search_page',
+      component: Search,
+    },{
+      path: '/label/:id',
+      name: 'label_page',
+      component: Label,
+    },{
+      path: '/explore/:urlname',
+      name: 'explore_page',
+      component: Explore,
     }
 
   ]
